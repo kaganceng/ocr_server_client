@@ -54,7 +54,7 @@ def parse_attributes(raw_text: str) -> dict:
     for l in lines:
         print("   ►", repr(l))
 
-    # ——— Yeni ekleme: Key:Value satırlarını da yaz ———
+    #Key:Value satırlarını da yaz
     print("🔍 DEBUG Key:Value candidates:")
     kv_re = re.compile(r'^\s*([^:]+?)\s*:\s*(.+)$')#burdaki deseni re.compile ile compile ettim oluşan nesneyi kv_re ye atadım
     for l in lines:
@@ -128,14 +128,14 @@ def parse_attributes(raw_text: str) -> dict:
             
             # - işaretleri etrafındaki boşluklara göre bölüyoruz
             parts = [p.strip() for p in re.split(r'\s*[-–]\s*', raw_val)]
-            # parts == ["16 June 2006", "Istanbul", "Turkey"]
+           
             #tarihi parse et
             try:
                 #ingilizce ay adı var dayfirst=False uygun
                 record['date_of_birth'] = date_parser.parse(parts[0], dayfirst=False).date()
             except:
                 record['date_of_birth'] = None
-            # 2) Şehir ve ülkeyi birleştir
+            #şehir ve ülkeyi birleştir
             if len(parts) >= 3:
                 record['place_of_birth'] = f"{parts[1]}, {parts[2]}"
             elif len(parts) == 2:
